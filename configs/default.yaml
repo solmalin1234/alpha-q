@@ -1,0 +1,45 @@
+# ── Alpha-Q default configuration ──────────────────────────────────────────────
+# Override any value via agent/env configs or CLI: --set key.subkey=value
+
+env:
+  id: "ALE/Pong-v5"
+  frameskip: 4            # action repeat (handled by AtariPreprocessing)
+  frame_stack: 4          # number of stacked frames
+  noop_max: 30            # random no-ops at episode start
+  terminal_on_life_loss: true
+  screen_size: 84
+  grayscale: true
+
+agent:
+  type: "dqn"
+  gamma: 0.99
+  lr: 2.5e-4
+  batch_size: 32
+  target_update_freq: 10000   # steps between target network syncs
+  epsilon_start: 1.0
+  epsilon_end: 0.1
+  epsilon_decay_steps: 1000000
+  grad_clip: 10.0             # max gradient norm
+
+replay:
+  capacity: 1000000
+  min_size: 50000             # fill buffer before training starts
+
+training:
+  total_steps: 10000000
+  train_freq: 4               # env steps between gradient updates
+  eval_freq: 100000           # steps between evaluation runs
+  eval_episodes: 10
+  checkpoint_freq: 500000     # steps between model saves
+  log_freq: 1000              # steps between metric logging
+
+mlflow:
+  experiment_name: "alpha-q"
+  tracking_uri: "mlruns"
+
+paths:
+  checkpoint_dir: "checkpoints"
+  video_dir: "videos"
+
+seed: 42
+device: "auto"                # "auto", "cpu", "cuda", "mps"

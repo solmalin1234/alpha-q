@@ -33,3 +33,7 @@ checkpoints/
 *.pt
 *.pth
 wandb/
+mlruns/
+mlartifacts/
+videos/
+experiments/outputs/

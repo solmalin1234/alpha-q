@@ -1,0 +1,5 @@
+env:
+  id: "ALE/Pong-v5"
+
+training:
+  total_steps: 2000000

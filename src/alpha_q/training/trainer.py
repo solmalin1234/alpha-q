@@ -75,13 +75,18 @@ def train(agent: BaseAgent, config: dict) -> None:
     episode_reward = 0.0
     episode_count = 0
 
+    noisy = getattr(agent, "noisy", False)
+
     pbar = tqdm(range(1, train_cfg["total_steps"] + 1), desc="Training")
 
     for step in pbar:
         epsilon = get_epsilon(step, config)
 
-        # Epsilon-greedy action selection
-        if np.random.random() < epsilon:
+        # Action selection: noisy agents explore via network noise,
+        # all others use epsilon-greedy.
+        if noisy:
+            action = agent.select_action(obs, eval_mode=False)
+        elif np.random.random() < epsilon:
             action = train_env.action_space.sample()
         else:
             action = agent.select_action(obs, eval_mode=False)

@@ -38,3 +38,4 @@ def available_agents() -> list[str]:
 import alpha_q.agents.double_dqn  # noqa: F401, E402
 import alpha_q.agents.dqn  # noqa: F401, E402
 import alpha_q.agents.dueling_dqn  # noqa: F401, E402
+import alpha_q.agents.noisy_dqn  # noqa: F401, E402

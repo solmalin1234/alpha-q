@@ -1,0 +1,18 @@
+agent:
+  type: "rainbow"
+  n_atoms: 51
+  v_min: -10.0
+  v_max: 10.0
+  gamma: 0.99
+  lr: 6.25e-5
+  batch_size: 32
+  target_update_freq: 8000
+  grad_clip: 10.0
+
+replay:
+  type: "prioritized"
+  capacity: 1000000
+  alpha: 0.5
+  beta_start: 0.4
+  beta_end: 1.0
+  n_step: 3

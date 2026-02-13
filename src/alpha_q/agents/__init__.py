@@ -32,3 +32,8 @@ def create_agent(name: str, **kwargs: Any) -> BaseAgent:
 def available_agents() -> list[str]:
     """Return sorted list of registered agent names."""
     return sorted(_REGISTRY)
+
+
+# Import agent modules so their @register decorators run.
+import alpha_q.agents.double_dqn  # noqa: F401, E402
+import alpha_q.agents.dqn  # noqa: F401, E402

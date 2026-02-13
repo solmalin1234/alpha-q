@@ -10,6 +10,7 @@ from tqdm import tqdm
 
 from alpha_q.agents.base import BaseAgent
 from alpha_q.envs.atari import make_atari_env_from_config
+from alpha_q.memory.prioritized_replay_buffer import PrioritizedReplayBuffer
 from alpha_q.memory.replay_buffer import ReplayBuffer
 from alpha_q.training.evaluator import evaluate
 from alpha_q.utils.logging import ExperimentLogger
@@ -22,6 +23,14 @@ def get_epsilon(step: int, cfg: dict) -> float:
     return agent_cfg["epsilon_start"] + frac * (
         agent_cfg["epsilon_end"] - agent_cfg["epsilon_start"]
     )
+
+
+def get_beta(step: int, cfg: dict) -> float:
+    """Linear beta annealing from beta_start to beta_end."""
+    replay_cfg = cfg["replay"]
+    total = cfg["training"]["total_steps"]
+    frac = min(1.0, step / total)
+    return replay_cfg["beta_start"] + frac * (replay_cfg["beta_end"] - replay_cfg["beta_start"])
 
 
 def train(agent: BaseAgent, config: dict) -> None:
@@ -41,7 +50,13 @@ def train(agent: BaseAgent, config: dict) -> None:
     obs_shape = obs.shape
 
     # ── replay buffer ─────────────────────────────────────────────────────
-    buffer = ReplayBuffer(replay_cfg["capacity"], obs_shape)
+    use_per = replay_cfg.get("type", "uniform") == "prioritized"
+    if use_per:
+        buffer = PrioritizedReplayBuffer(
+            replay_cfg["capacity"], obs_shape, alpha=replay_cfg.get("alpha", 0.6)
+        )
+    else:
+        buffer = ReplayBuffer(replay_cfg["capacity"], obs_shape)
 
     # ── logger ────────────────────────────────────────────────────────────
     logger = ExperimentLogger(
@@ -93,11 +108,23 @@ def train(agent: BaseAgent, config: dict) -> None:
             from alpha_q.utils.seeding import get_device
 
             device = get_device(config.get("device", "auto"))
-            batch = buffer.sample(config["agent"]["batch_size"], device=device)
+            if use_per:
+                beta = get_beta(step, config)
+                batch = buffer.sample(config["agent"]["batch_size"], device=device, beta=beta)
+            else:
+                batch = buffer.sample(config["agent"]["batch_size"], device=device)
+
             metrics = agent.learn(batch)
+
+            # Update priorities for PER
+            td_errors = metrics.pop("td_errors", None)
+            if use_per and td_errors is not None:
+                buffer.update_priorities(batch["indices"], td_errors.cpu().numpy())
 
             if step % train_cfg["log_freq"] == 0:
                 metrics["train/epsilon"] = epsilon
+                if use_per:
+                    metrics["train/beta"] = beta
                 logger.log_metrics(metrics, step=step)
 
         # ── target sync ───────────────────────────────────────────────────

@@ -57,7 +57,15 @@ class DQNAgent(BaseAgent):
             next_q = self.target_net(next_states).max(dim=1).values
             target = rewards + self.gamma * next_q * (1.0 - dones)
 
-        loss = F.smooth_l1_loss(q_values, target)
+        td_errors = (q_values - target).detach().abs()
+        element_wise_loss = F.smooth_l1_loss(q_values, target, reduction="none")
+
+        # Weight by importance-sampling correction when using PER
+        weights = batch.get("weights")
+        if weights is not None:
+            loss = (weights * element_wise_loss).mean()
+        else:
+            loss = element_wise_loss.mean()
 
         self.optimizer.zero_grad()
         loss.backward()
@@ -67,6 +75,7 @@ class DQNAgent(BaseAgent):
         return {
             "train/loss": loss.item(),
             "train/q_mean": q_values.mean().item(),
+            "td_errors": td_errors,
         }
 
     # ── target sync ───────────────────────────────────────────────────────

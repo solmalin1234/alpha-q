@@ -32,7 +32,7 @@ class DoubleDQNAgent(DQNAgent):
         with torch.no_grad():
             next_actions = self.online_net(next_states).argmax(dim=1, keepdim=True)
             next_q = self.target_net(next_states).gather(1, next_actions).squeeze(1)
-            target = rewards + self.gamma * next_q * (1.0 - dones)
+            target = rewards + (self.gamma**self.n_step) * next_q * (1.0 - dones)
 
         td_errors = (q_values - target).detach().abs()
         element_wise_loss = F.smooth_l1_loss(q_values, target, reduction="none")

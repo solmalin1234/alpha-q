@@ -23,6 +23,7 @@ class DQNAgent(BaseAgent):
 
         self.device = device
         self.gamma = agent_cfg["gamma"]
+        self.n_step = config.get("replay", {}).get("n_step", 1)
         self.grad_clip = agent_cfg["grad_clip"]
 
         self.online_net = NatureCNN(in_channels, n_actions).to(device)
@@ -55,7 +56,7 @@ class DQNAgent(BaseAgent):
         # max_a' Q_target(s', a')
         with torch.no_grad():
             next_q = self.target_net(next_states).max(dim=1).values
-            target = rewards + self.gamma * next_q * (1.0 - dones)
+            target = rewards + (self.gamma**self.n_step) * next_q * (1.0 - dones)
 
         td_errors = (q_values - target).detach().abs()
         element_wise_loss = F.smooth_l1_loss(q_values, target, reduction="none")

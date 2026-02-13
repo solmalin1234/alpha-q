@@ -10,6 +10,7 @@ from tqdm import tqdm
 
 from alpha_q.agents.base import BaseAgent
 from alpha_q.envs.atari import make_atari_env_from_config
+from alpha_q.memory.n_step_buffer import NStepBuffer
 from alpha_q.memory.prioritized_replay_buffer import PrioritizedReplayBuffer
 from alpha_q.memory.replay_buffer import ReplayBuffer
 from alpha_q.training.evaluator import evaluate
@@ -57,6 +58,10 @@ def train(agent: BaseAgent, config: dict) -> None:
         )
     else:
         buffer = ReplayBuffer(replay_cfg["capacity"], obs_shape)
+
+    n_step = replay_cfg.get("n_step", 1)
+    if n_step > 1:
+        buffer = NStepBuffer(buffer, n_step, config["agent"]["gamma"])
 
     # ── logger ────────────────────────────────────────────────────────────
     logger = ExperimentLogger(

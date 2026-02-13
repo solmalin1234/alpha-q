@@ -1,0 +1,10 @@
+agent:
+  type: "noisy_dqn"
+  gamma: 0.99
+  lr: 2.5e-4
+  batch_size: 32
+  target_update_freq: 10000
+  epsilon_start: 1.0
+  epsilon_end: 0.1
+  epsilon_decay_steps: 1000000
+  grad_clip: 10.0

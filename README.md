@@ -1,6 +1,6 @@
 # Alpha-Q
 
-Deep Q-Network variants for Atari — from vanilla DQN to Rainbow.
+Deep Q-Network variants for Atari — from vanilla DQN to Rainbow and beyond.
 
 A research project implementing the progression of DQN improvements from the deep RL literature, with each variant built incrementally and measured via controlled experiments.
 
@@ -107,6 +107,18 @@ Each phase is a separate branch and PR with documented experiment results.
 | 6 | Noisy Nets | Fortunato et al., 2018 | NoisyLinear, remove epsilon-greedy |
 | 7 | C51 (Distributional) | Bellemare et al., 2017 | 51-atom value distribution |
 | 8 | Rainbow | Hessel et al., 2018 | Compose all 6 improvements |
+| 9 | QR-DQN | Dabney et al., 2018 | Quantile regression replaces fixed atoms |
+| 10 | Munchausen DQN | Vieillard et al., 2020 | Scaled log-policy bonus in Bellman target |
+| 11 | Benchmarks | — | Learning curves across agents and games |
+
+### After Phase 11
+
+- [ ] **Ablation studies** — Systematically remove each Rainbow component to measure individual contribution (reproduce Table 2 from Hessel et al.)
+- [ ] **Munchausen + Rainbow hybrid** — Combine M-DQN's log-policy bonus with Rainbow; measure if entropy regularisation can replace NoisyNets
+- [ ] **QR-Rainbow** — Swap C51's fixed atoms for QR-DQN quantiles inside Rainbow; compare distributional approaches head-to-head
+- [ ] **Per-game hyperparameter tuning** — Sweep `v_min`/`v_max`, `n_step`, `alpha`/`beta` per environment; document which matter most
+- [ ] **Scaling to full Atari-57** — Run best agents on the standard 57-game benchmark suite, compare to published scores
+- [ ] **Write-up** — Compile results into a report or blog post with learning curves, ablation tables, and key takeaways
 
 ## Development
 

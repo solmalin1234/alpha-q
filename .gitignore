@@ -37,3 +37,6 @@ mlruns/
 mlartifacts/
 videos/
 experiments/outputs/
+
+# Personal notes
+todo.md

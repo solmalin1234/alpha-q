@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 
 from alpha_q.agents import create_agent
+from alpha_q.envs.atari import make_atari_env_from_config
 from alpha_q.utils.config import load_config
 from alpha_q.utils.seeding import get_device, seed_everything
 
@@ -56,7 +57,13 @@ def main(argv: list[str] | None = None) -> None:
     print(f"Agent: {config['agent']['type']}")
     print(f"Environment: {config['env']['id']}")
 
-    agent = create_agent(config["agent"]["type"], config=config, device=device)
+    tmp_env = make_atari_env_from_config(config)
+    n_actions = tmp_env.action_space.n
+    tmp_env.close()
+
+    agent = create_agent(
+        config["agent"]["type"], config=config, device=device, n_actions=n_actions
+    )
 
     from alpha_q.training.trainer import train
 

@@ -41,7 +41,13 @@ def main(argv: list[str] | None = None) -> None:
     seed_everything(config["seed"])
     device = get_device(config.get("device", "auto"))
 
-    agent = create_agent(config["agent"]["type"], config=config, device=device)
+    tmp_env = make_atari_env_from_config(config)
+    n_actions = tmp_env.action_space.n
+    tmp_env.close()
+
+    agent = create_agent(
+        config["agent"]["type"], config=config, device=device, n_actions=n_actions
+    )
     agent.load(args.checkpoint)
     print(f"Loaded checkpoint: {args.checkpoint}")
 

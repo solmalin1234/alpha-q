@@ -24,6 +24,7 @@ class DuelingDQNAgent(DQNAgent):
 
         self.device = device
         self.gamma = agent_cfg["gamma"]
+        self.n_step = config.get("replay", {}).get("n_step", 1)
         self.grad_clip = agent_cfg["grad_clip"]
 
         self.online_net = DuelingCNN(in_channels, n_actions).to(device)

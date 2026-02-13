@@ -25,6 +25,7 @@ replay:
   type: "uniform"             # "uniform" or "prioritized"
   capacity: 1000000
   min_size: 50000             # fill buffer before training starts
+  n_step: 1                   # multi-step returns (1 = standard TD)
   alpha: 0.6                  # PER: prioritization exponent
   beta_start: 0.4             # PER: initial IS correction
   beta_end: 1.0               # PER: final IS correction (annealed linearly)

